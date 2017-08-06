@@ -86,7 +86,7 @@ export default {
 <style scoped lang="sass">
 $fontF: #fff
 *
-  border: 1px solid #999
+  // border: 1px solid #999
 header.jumbotron
   background-image: url(http://i.imgur.com/9tMnrdr.jpg)
   background-size: cover

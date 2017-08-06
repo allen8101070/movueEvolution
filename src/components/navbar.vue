@@ -16,7 +16,7 @@
                     li
                         router-link(:to="{path:'/coming'}") 即將上映
                     li
-                        router-link(:to="{path:'/usamovie'}") 北排排行
+                        router-link(:to="{path:'/usamovie'}") 北美排行
                     li
                         router-link(:to="{path:'/cnmovie'}") 中國排行
                     li
@@ -25,13 +25,38 @@
 </template>
 
 <style scoped lang="sass">
-nav.navbar.navbar-default.navbar-fixed-top.mynav
-    .container
-        #navbar2.navbar-collapse.collapse
-            .router-link-active
-                color: #d35b00 !important
+$org: #d35b00;
 
 
+
+.navbar.navbar-default.navbar-fixed-top.mynav
+  font-size: 18px
+  transition: 0.5s
+  font-weight: 900
+  background-color: #fff
+  border: none
+  .container
+    #navbar2.navbar-collapse.collapse
+        .router-link-active
+            color: $org !important
+.navbar-default
+    .navbar-nav > li > a, nav.navbar-default .navbar-brand
+        color: #0f2242
+
+.navbar.navbar-default.navbar-fixed-top
+  a:hover
+    color: $org
+    transition: 0.2s
+
+    
+.navbar-default .navbar-toggle
+  border-color: #fff
+  .icon-bar, &:focus, &:hover
+    background-color: #fff
+  &:focus .icon-bar, &:hover .icon-bar
+    background-color: $org
+  .icon-bar
+    background-color: #0f2242
 </style>
 
 

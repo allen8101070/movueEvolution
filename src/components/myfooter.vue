@@ -1,15 +1,18 @@
 <template lang="pug">
     footer.footer.myfooter
       .container
-        p.text-muted Place sticky footer content here.
+        p.text-muted 
+            | 哈囉電影網 by Allen
 </template>
 
 <style scoped lang="sass">
-    .myfooter
+    footer.footer.myfooter
         background-color: #000
         .container  
-            p
+            p.text-muted
                 padding: 20px 0px
+                color: #fff
+                text-align: center
 </style>
 
 
