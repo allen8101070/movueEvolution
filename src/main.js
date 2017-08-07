@@ -8,6 +8,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
+import loading from './components/loading.vue';
+Vue.component('loading',loading);
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)

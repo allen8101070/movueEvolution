@@ -2,10 +2,7 @@
   div
     header.jumbotron
       .container
-        h1
-          | 哈囉電影網
-          br
-          | 您的電影好夥伴
+        h1 哈囉電影網</br>您的電影好夥伴
         router-link(:to="{path:'/usamovie'}") 查看本周北美排名
     section.sectionAsk
       .container
@@ -28,14 +25,12 @@
             .img_wrap
               img(src="https://image.pbs.org/poster_images/assets/zybuwcw4sr2wuluxk4tr.png.resize.710x399.png", alt="")
             h3 怎麼做?
-            p
-              | 透過串接第三方電影資訊API，我們打造了一個簡易的電影網站，讓熱愛觀影的你能有更多的選擇，想找電影資訊或看別人的評論嗎?來這就對了。
+            p 透過串接第三方電影資訊API，我們打造了一個簡易的電影網站，讓熱愛觀影的你能有更多的選擇，想找電影資訊或看別人的評論嗎?來這就對了。
           .col-md-4.col-sm-6
             .img_wrap
               img(src="https://cdn-images-1.medium.com/max/570/1*9P1fiY1DjqsfwuHT8v4gKQ.jpeg", alt="")
             h3 四種資訊
-            p
-              | 資訊貴精不貴多，我們替您準備了四種選項「正在熱映」、「北美排行」、「中國排行」與「即將上映」，希望能幫助你找到想要的資訊。
+            p 資訊貴精不貴多，我們替您準備了四種選項「正在熱映」、「北美排行」、「中國排行」與「即將上映」，希望能幫助你找到想要的資訊。
     section.sectionHow
       .container
         .row
@@ -60,15 +55,12 @@
                 span.glyphicon.glyphicon-user(aria-hidden="true")
                 h4 無工讀生帶風向
             .col-sm-12
-              p
-                | 第三方電影網站雖無片商的支持與援助。但我們的優勢有三：
-                br
-                | 1.保證與片商、電影院無關，不會圖利特定電影。
-                br
-                | 2.串接豆瓣API，遵守使用規範，資訊來源絕對合法。
-                br
-                | 3.保證自由客觀的影評討論。
-
+              p 第三方電影網站雖無片商的支持與援助。但我們的優勢有三：</br>1.保證與片商、電影院無關，不會圖利特定電影。</br>2.串接豆瓣API，遵守使用規範，資訊來源絕對合法。</br>3.保證自由客觀的影評討論。
+    section.sectionUse
+      .container
+        .row
+          .col-sm-12
+            router-link(:to="{path:'/nowplaying'}") 馬上查看正在熱映的電影吧
 </template>
 
 <script>
@@ -78,6 +70,12 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  mounted() {
+    //載入時自動回到網頁最上方
+    $("html,body").animate({
+      scrollTop: 0
+    }, 0);
   }
 }
 </script>
@@ -85,6 +83,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="sass">
 $fontF: #fff
+$bgcorg: linear-gradient( 135deg, #FEC163 10%, #DE4313 100%);
 *
   // border: 1px solid #999
 header.jumbotron
@@ -101,23 +100,23 @@ header.jumbotron
       text-shadow: 0px 0px 6px #000
     a
       display: inline-block
-      background-color: #d35b00
+      color: #d35b00
       text-align: center
       padding: 10px 20px
       font-size: 18px
-      color: $fontF
-      box-shadow: 0px 0px 6px #fff
+      font-weight: 900
+      background-color: $fontF
+      box-shadow: 0px 4px 15px -2px #000
       margin-top: 6px
       &:hover
-        color: #d35b00
-        background-color: $fontF
+        color: $fontF
+        background-color: #e55614
         transition: 0.5s
-        font-width: 900
         
 section
   color: $fontF
   &.sectionAsk
-    background-color: #d28f1b
+    background-image: $bgcorg;
     
     .col-sm-5.img
       background-image: url(http://img3.doubanio.com/view/photo/photo/public/p2209079394.jpg)
@@ -129,6 +128,7 @@ section
       padding: 0px 20px
   &.sectionAbout
     padding: 40px 0px
+    background-color: #0f2242
     img
       width: 100%
     p
@@ -137,18 +137,17 @@ section
       height: 200px
       overflow: hidden
   &.sectionHow
-    background-color: #dd6216
-    
+    background-image: $bgcorg
     .col-sm-5.img
       background-image: url(http://img3.doubanio.com/view/photo/photo/public/p938463241.jpg)
       background-position: top center
       height: 350px
-      /* mix-blend-mode: multiply;
       background-size: cover
     h2
       margin-top: 130px
       padding: 0px 20px
   &.sectionThree
+    background-color: #0f2242
     text-align: center
     padding: 40px 0px
     h2
@@ -161,19 +160,48 @@ section
         margin: 30px 0px
       h4
         margin-bottom: 30px
+  &.sectionUse
+    text-align: center
+    background-image: $bgcorg
+    box-sizing: border-box
+    height: 350px
+    a
+      display: inline-block
+      font-size: 18px
+      font-weight: 900
+      color: #d35b00
+      margin-top: 130px
+      background-color: $fontF
+      padding: 20px 18px
+      border-radius: 20px
+      box-shadow: 0px 7px 15px -5px #000
+
+      &:hover
+        color: #fff
+        background-color: #0f2242
+        transition: 0.5s
+
 @media (max-width: 768px)
-  section#sectionAsk h2
-    margin: 80px 0px
+  .sectionAsk
+    h2
+      margin: 80px 0px
 @media (max-width: 767px)
-  section#sectionAbout .img_wrap
-    height: 250px
+  .sectionAbout
+    .img_wrap
+      height: 250px
 @media (max-width: 668px)
-  section#sectionAbout .img_wrap
-    height: 300px
+  section
+    &.sectionAbout
+      .img_wrap
+        height: 300px
 @media (max-width: 413px)
-  section#sectionAbout .img_wrap
-    height: 220px
+  section
+    &.sectionAbout
+      .img_wrap
+        height: 220px
 @media (max-width: 768px)
-  section#sectionHow h2
-    margin: 80px 0px
+  section
+    &.sectionHow
+      h2
+        margin: 80px 0px
 </style>

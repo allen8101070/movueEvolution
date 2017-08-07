@@ -3,7 +3,7 @@ section.mybox
   .container
     //- loading
     .row(v-if="myloading")
-      h2 讀取中...
+      loading
     //- 以下AJAX成功顯示的畫面
     .row(v-if="successAJAX")
       .col-sm-12
@@ -83,7 +83,7 @@ $fontF: #fff
     .myMovieCard
       background-color: #293344
       margin-bottom: 30px
-      box-shadow: 0px 3px 15px -2px #000
+      box-shadow: 0px 5px 15px -2px #000
       border-radius: 5px
       color: $fontF
       font-weight: 900

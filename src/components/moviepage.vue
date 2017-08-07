@@ -2,7 +2,7 @@
 .mybox
   //- loading
   .row(v-if="myloading")
-    h2 讀取中...
+    loading
   //- 以下AJAX失敗顯示的畫面
   .row(v-if="errorAJAX")
     h2 讀取失敗，請重新整理!
@@ -48,8 +48,7 @@
                 p 语　　言：  
                   span {{thisIdMovie.languages[0]}} 
               li
-                p
-                  | 官方連結：  
+                p 官方連結：  
                   a(v-bind:href="thisIdMovie.alt") 點我去
     //- 劇情介紹區塊
     section
@@ -58,10 +57,10 @@
           .col-md-12
             h3 劇情介紹：
             hr
-          .col-md-12
+          .col-md-12(v-if="summaryYes")
             p {{thisIdMovie.summary}}
-
-
+          .col-md-12.oops(v-if="summaryNo")
+            h4 Oops!目前暫無劇情介紹
     //- 預告片區塊
     section
       .container
@@ -69,8 +68,8 @@
           .col-md-12
             h3 預告片：
             hr
-          .col-md-12(v-if="traVdoNo")
-            h4.oops Oops!目前暫無預告片資料
+          .col-md-12.oops(v-if="traVdoNo")
+            h4 Oops!目前暫無預告片資料
           div(v-if="traVdo")
             .col-sm-12.col-md-6(v-for="trailer in thisIdMovie.trailers", :key="trailer.id")
               .trailers
@@ -100,7 +99,9 @@
                     | {{cast.name}}
                     br
                     span {{cast.name_en}}
-
+          div(v-if="castNo")
+            .col-md-12.oops
+              h4 Oops!目前暫無演員資料
     //- 心得評論區塊
     section
       .container
@@ -108,6 +109,7 @@
           .col-md-12
             h3 心得評論：
             hr
+          div(v-if="commentsYes")
           .col-sm-12.col-md-6(v-for="reviews in thisIdMovie.popular_reviews", :key="reviews.id")
             .media.myComments
               .media-left
@@ -117,17 +119,14 @@
                 h4 {{reviews.author.name}}
                 .StarRating
                   label.StarRatingStar(v-for="rating in ratings", :key="rating.id", :class="{ 'is-selected' : ((reviews.rating.value >= rating) && reviews.rating.value != null), 'is-disabled': disabled}") ★
-                h4.media-heading {{reviews.title}}
-                p
-                  | {{reviews.summary}}
+                hr
+                h4.media-heading 「{{reviews.title}}」
+                p {{reviews.summary}}
                   span
                     a(v-bind:href="reviews.alt") 查看更多
-
-
-
-
-          div(v-if="castNo")
-            h4.oops Oops!目前暫無演員資料
+          div(v-if="commentsNo")
+            .col-md-12.oops
+              h4 Oops!目前暫無演員資料
 </template>
 
 <script>
@@ -147,11 +146,15 @@ export default {
       testStar: null,//星星用
       ratingYes: true,//辦別有分數就...
       ratingNo: false,//辦別沒有分數就...
+      summaryYes: true,//辦別有電影簡介就顯示...
+      summaryNo: false,//辦別沒有電影簡介就顯示...
       castYes: true,//辦別有演員資料就顯示...
       castNo: false,//辦別沒有演員資料就顯示...
       traVdo: true, //辦別有預告片就顯示...
       traVdoNo: false,//辦別沒有預告片就顯示...
-      traVdoOne: false//辦別預告片是否只有一部...
+      traVdoOne: false,//辦別預告片是否只有一部...
+      commentsYes: true, //辦別有預告片就顯示...
+      commentsNo: false, //辦別有預告片就顯示...
     }
   },
   created() {
@@ -198,7 +201,12 @@ export default {
             self.ratingNo = true;//顯示目前暫無評分
             self.ratingYes = false;//隱藏總評分字樣
           }
-          
+
+          if (self.thisIdMovie.summary == "") {//如果沒有電影簡介
+            self.summaryYes = false;
+            self.summaryNo = true;
+          }
+
           if (self.thisIdMovie.trailers == "") {//如果沒有預告片
             self.traVdo = false;
             self.traVdoNo = true;
@@ -210,6 +218,10 @@ export default {
           if (self.thisIdMovie.casts == "" || self.thisIdMovie.casts[0].avatars == null) {//如果沒有演員
             self.castYes = false;
             self.castNo = true;
+          }
+          if (self.thisIdMovie.popular_reviews == false) {//如果沒有評論
+            self.commentsYes = false;
+            self.commentsNo = true;
           }
         },
         error: function () {
@@ -294,7 +306,7 @@ $myshadow: 0px 10px 18px -4px #000;
     ul
       list-style-type: none
       padding: 0px
-
+      margin-top: 20px
       span
         display: inline-block
 
@@ -335,8 +347,6 @@ $myshadow: 0px 10px 18px -4px #000;
         text-shadow: 0px 0px 5px #000
         color: #fff
         font-size: 24px
-        span
-          color: $myorg
 
 @media (max-width: 1200px)
   .myMovieBox
@@ -374,6 +384,7 @@ section
   .container
     .row
       padding-bottom: 40px
+
       h3
         font-size: 30px
         font-weight: 900
@@ -381,6 +392,10 @@ section
       hr
         border-top: 3px solid $myorg
         margin-top: 4px
+      .oops
+        text-align: center
+        height: 100px
+
 // 劇情描述區塊
 .info0
   p
@@ -480,8 +495,7 @@ section
 .info3
   margin-top: 50px
   .myComments
-    background-color: #f7f7f7
-    // background-image: linear-gradient( 135deg, #fff 10%, #26346d 100%);
+    border: 3px solid $myorg
     padding: 10px
     height: 250px
     margin-bottom: 20px
@@ -495,7 +509,8 @@ section
     .media-body
       h4
         font-size: 18px
-        color: $myorg
+        color: #fff
+        font-weight: 900
         margin-bottom: 0px
         
       .StarRating
@@ -507,15 +522,15 @@ section
             color: yellow
       p
         font-size: 16px
-        color: #333
+        color: #fff
         padding-right: 1em
         margin-top: 20px
 
       a
-        color: bule
+        color: yellow
         font-width: 900
         &:hover
-          color: $myorg
+          color: #77e5a0
 
 @media (max-width: 992px)
   .info3 .myComments
