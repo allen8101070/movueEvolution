@@ -23,10 +23,10 @@ section.mybox
 
 <script>
 export default {
-  name: 'hello',
+  name: 'nowplaying',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: '',
       nowPlaying: {},
       myloading: true,//用來判定是否需要loading畫面
       successAJAX: null,//用來判定AJAX成功畫面
@@ -37,9 +37,9 @@ export default {
     getData() {
       //宣告變數self保存"this"，這裡的tihs是上方data(){return裡的內容，因為下面AJAX如果用"this"會抓到AJAX自己本身
       //這樣AJAX完就可以簡單的寫 變數.nowPlaying = AJAX的JSON內容，把JSON傳給data(){return 內的物件
-      var self = this;
-      var myApiKey = "?apikey=0df993c66c0c636e29ecbb5344252a4a";
-      var nowPlayingUrl = "https://nameless-everglades-40413.herokuapp.com/movie/nowplaying" + myApiKey;
+      let self = this;
+      let myApiKey = "?apikey=0df993c66c0c636e29ecbb5344252a4a";
+      let nowPlayingUrl = "https://nameless-everglades-40413.herokuapp.com/movie/nowplaying" + myApiKey;
       $.ajax({
         url: nowPlayingUrl,
         type: "get",

@@ -35,9 +35,9 @@ export default {
   methods:{
     getData (){
       //宣告變數self保存this
-      var self = this;
-      var myApiKey = "?apikey=0df993c66c0c636e29ecbb5344252a4a";
-      var cnmovieUrl = "https://nameless-everglades-40413.herokuapp.com/movie/weekly"+myApiKey;
+      let self = this;
+      let myApiKey = "?apikey=0df993c66c0c636e29ecbb5344252a4a";
+      let cnmovieUrl = "https://nameless-everglades-40413.herokuapp.com/movie/weekly"+myApiKey;
       $.ajax({
         url: cnmovieUrl,
         type: "get",

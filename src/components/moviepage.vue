@@ -45,7 +45,7 @@
                 p 片　　長：  
                   span {{thisIdMovie.durations[0]}}
               li
-                p 语　　言：  
+                p 語　　言：  
                   span {{thisIdMovie.languages[0]}} 
               li
                 p 官方連結：  
@@ -172,10 +172,10 @@ export default {
   },
   methods: {
     movieData() {
-      var self = this;
-      var myApiKey = "?apikey=0df993c66c0c636e29ecbb5344252a4a";
+      let self = this;
+      let myApiKey = "?apikey=0df993c66c0c636e29ecbb5344252a4a";
       //利用node.js方法params取出路由的id(故意讓路由id等於豆瓣電影API的電影id) 這樣就能把它加進"電影詳細API"去AJAX取個別資料
-      var moviePageUrl = "https://nameless-everglades-40413.herokuapp.com/movie/subject/" + this.$route.params.id + myApiKey;
+      let moviePageUrl = "https://nameless-everglades-40413.herokuapp.com/movie/subject/" + this.$route.params.id + myApiKey;
       console.log(this.$route.params.id);
       $.ajax({
         url: moviePageUrl,
@@ -235,8 +235,8 @@ export default {
   computed: {
     ratings: function () {
       if (!this.max) { return [1, 2, 3, 4, 5]; }
-      var numberArray = [];
-      for (var i = 1; this.max >= i; i++) {
+      let numberArray = [];
+      for (let i = 1; this.max >= i; i++) {
         numberArray.push(i);
       }
       return numberArray;
